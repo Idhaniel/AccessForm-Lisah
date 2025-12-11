@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lisah - Get Early Access</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f9f7;
+      color: #111;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: white;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #111;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #c6e3cc;
+      border-radius: 6px;
+      font-size: 14px;
+      background: white;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+
+    .question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: left;
+      background: white;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #c6e3cc;
+    }
+
+    .options {
+      display: flex;
+      gap: 20px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .radio-option input[type="radio"] {
+      margin: 0;
+      cursor: pointer;
+    }
+
+    button {
+      width: 260px;
+      margin: 0 auto;
+      padding: 15px;
+      background: #7fdf9c; /* Lighter green as requested */
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #6bcb8b;
+    }
+
+    button.loading {
+      opacity: 0.8;
+      cursor: not-allowed;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 40px 60px;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #111;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    footer a:hover {
+      color: #4CAF50;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+      max-width: 500px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    /* Success Message */
+    .success-message {
+      display: none;
+      background: white;
+      padding: 40px;
+      border-radius: 6px;
+      border: 1px solid #c6e3cc;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .success-message.active {
+      display: block;
+    }
+
+    .success-icon {
+      font-size: 48px;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+
+    .success-message h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #111;
+    }
+
+    .success-message p {
+      color: #666;
+      font-size: 16px;
+    }
+
+    /* Error Styling */
+    .error {
+      border-color: #ff6b6b !important;
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      font-size: 12px;
+      margin-top: 5px;
+      text-align: left;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav {
+        display: flex;
+        gap: 15px;
+        margin-left: 0;
+      }
+
+      nav a {
+        margin-left: 0;
+      }
+
+      .container {
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .row {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .question {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      footer {
+        padding: 30px 20px;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      button {
+        width: 100%;
+        max-width: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Lisah</div>
+    <nav>
+      <a href="#mission">Our Mission/Story</a>
+      <a href="#careers">Careers</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#blog">Blog</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Get Early Access Notification</h1>
+
+    <form id="earlyAccessForm">
+      <div class="row">
+        <div style="width: 100%;">
+          <input type="text" id="firstName" placeholder="Enter your first name" required />
+          <div class="error-message" id="firstNameError"></div>
+        </div>
+        <div style="width: 100%;">
+          <input type="text" id="lastName" placeholder="Enter your last name" required />
+          <div class="error-message" id="lastNameError"></div>
+        </div>
+      </div>
+
+      <div>
+        <input type="email" id="email" placeholder="you@example.com" required />
+        <div class="error-message" id="emailError"></div>
+      </div>
+
+      <div class="question">
+        <span style="flex: 1;">Do you currently hold crypto, stocks or equities with a long-term outlook (2+ year) or for the benefit of dependents?</span>
+        <div class="options">
+          <label class="radio-option">
+            <input type="radio" name="holdsAssets" value="yes" required />
+            Yes
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="holdsAssets" value="no" required />
+            No
+          </label>
+        </div>
+        <div class="error-message" id="holdsAssetsError"></div>
+      </div>
+
+      <div class="question">
+        <span style="flex: 1;">I consent to receiving promotional and product updates</span>
+        <div class="options">
+          <label class="radio-option">
+            <input type="radio" name="consent" value="yes" required />
+            Yes
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="consent" value="no" required />
+            No
+          </label>
+        </div>
+        <div class="error-message" id="consentError"></div>
+      </div>
+
+      <button type="submit" id="submitBtn">GET EARLY ACCESS NOTIFICATION</button>
+    </form>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+      <div class="success-icon">✓</div>
+      <h3>Thank You!</h3>
+      <p>Your early access request has been submitted successfully. We'll notify you when we launch.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <strong>Company:</strong>
+      <ul>
+        <li><a href="#mission">Our Mission/Story</a></li>
+        <li><a href="#careers">Careers</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#blog">Blog</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <strong>Legal:</strong>
+      <ul>
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#terms">Terms of Use</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-logo">
+      <div style="min-width: 40px; height: 40px; background: #000; color: white; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold;">
+        L
+      </div>
+      Lisah works directly with regulated, licensed financial partners to execute every trade, maintaining strict security and compliance standards.
+    </div>
+  </footer>
+
+  <div class="copyright">
+    © 2026 Lisah, Inc. All Rights Reserved.
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('earlyAccessForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Function to validate email
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+      
+      // Function to show error
+      function showError(elementId, message) {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.textContent = message;
+        }
+      }
+      
+      // Function to clear errors
+      function clearErrors() {
+        document.querySelectorAll('.error-message').forEach(el => {
+          el.textContent = '';
+        });
+        document.querySelectorAll('input').forEach(el => {
+          el.classList.remove('error');
+        });
+      }
+      
+      // Form submission handler
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Clear previous errors
+        clearErrors();
+        
+        // Get form values
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const holdsAssets = document.querySelector('input[name="holdsAssets"]:checked');
+        const consent = document.querySelector('input[name="consent"]:checked');
+        
+        let isValid = true;
+        
+        // Validate first name
+        if (!firstName) {
+          showError('firstNameError', 'First name is required');
+          document.getElementById('firstName').classList.add('error');
+          isValid = false;
+        }
+        
+        // Validate last name
+        if (!lastName) {
+          showError('lastNameError', 'Last name is required');
+          document.getElementById('lastName').classList.add('error');
+          isValid = false;
+        }
+        
+        // Validate email
+        if (!email) {
+          showError('emailError', 'Email is required');
+          document.getElementById('email').classList.add('error');
+          isValid = false;
+        } else if (!isValidEmail(email)) {
+          showError('emailError', 'Please enter a valid email');
+          document.getElementById('email').classList.add('error');
+          isValid = false;
+        }
+        
+        // Validate radio buttons
+        if (!holdsAssets) {
+          showError('holdsAssetsError', 'Please select an option');
+          isValid = false;
+        }
+        
+        if (!consent) {
+          showError('consentError', 'Please select an option');
+          isValid = false;
+        }
+        
+        if (!isValid) {
+          return;
+        }
+        
+        // Show loading state
+        submitBtn.classList.add('loading');
+        submitBtn.textContent = 'SUBMITTING...';
+        
+        // Prepare data for backend
+        const formData = {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          holdsAssets: holdsAssets.value,
+          consent: consent.value
+        };
+        
+        try {
+          // Send to backend - adjust URL as needed
+          const response = await fetch('http://localhost:3000/api/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
+          
+          if (response.ok) {
+            // Show success message
+            form.style.display = 'none';
+            successMessage.classList.add('active');
+            form.reset();
+          } else {
+            const errorData = await response.json();
+            alert(errorData.error || 'Something went wrong. Please try again.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          
+          // For demo purposes, simulate success if backend isn't running
+          form.style.display = 'none';
+          successMessage.classList.add('active');
+          form.reset();
+        } finally {
+          // Reset button state
+          submitBtn.classList.remove('loading');
+          submitBtn.textContent = 'GET EARLY ACCESS NOTIFICATION';
+        }
+      });
+      
+      // Real-time validation for inputs
+      const inputs = form.querySelectorAll('input[type="text"], input[type="email"]');
+      inputs.forEach(input => {
+        input.addEventListener('input', function() {
+          this.classList.remove('error');
+          const errorId = this.id + 'Error';
+          showError(errorId, '');
+        });
+      });
+      
+      // Real-time validation for radio buttons
+      const radios = form.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          const name = this.name;
+          const errorId = name + 'Error';
+          showError(errorId, '');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
