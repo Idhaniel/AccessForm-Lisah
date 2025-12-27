@@ -1,126 +1,75 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-require('dotenv').config();
+const express = require("express");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const path = require("path");
+require("dotenv").config();
+
+const formRoutes = require("./routes/formRoutes");
+const { initializeDatabase } = require("./database");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Security middleware
+/* ======================
+   Security
+====================== */
 app.use(helmet());
 
-// CORS configuration - Allow both localhost and 127.0.0.1
-app.use(
-	cors({
-		origin: function (origin, callback) {
-			// Allow requests with no origin (like mobile apps or curl requests)
-			if (!origin) return callback(null, true);
-
-			// Allow localhost on any port, 127.0.0.1 on any port, and your production domain
-			const allowedOrigins = [
-				/^http:\/\/localhost(:\d+)?$/,
-				/^http:\/\/127\.0\.0\.1(:\d+)?$/,
-				/^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/, // Allow local network
-				process.env.FRONTEND_URL
-			].filter(Boolean);
-
-			if (
-				allowedOrigins.some((pattern) => {
-					if (
-						pattern instanceof
-						RegExp
-					) {
-						return pattern.test(
-							origin
-						);
-					}
-					return pattern === origin;
-				})
-			) {
-				return callback(null, true);
-			}
-
-			return callback(new Error('Not allowed by CORS'));
-		},
-		credentials: true,
-		methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-		allowedHeaders: ['Content-Type', 'Authorization']
-	})
-);
-
-// Handle preflight requests
-app.options('*', cors());
-
-// Rate limiting
+/* ======================
+   Rate Limiting (API only)
+====================== */
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 100 // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100,
 });
-app.use('/api/', limiter);
+app.use("/api", limiter);
 
-// Body parser middleware
+/* ======================
+   Body Parsers
+====================== */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Database setup
-const { pool, initializeDatabase } = require('./database');
+/* ======================
+   Static Frontend
+====================== */
+app.use(express.static(path.join(__dirname, "public")));
 
-// Test route
-app.get('/api/health', (req, res) => {
-	res.json({
-		status: 'ok',
-		message: 'Server is running',
-		timestamp: new Date().toISOString()
-	});
+/* ======================
+   API Routes
+====================== */
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "Server is running",
+    timestamp: new Date().toISOString(),
+  });
 });
 
-// Import routes
-const formRoutes = require('./routes/formRoutes');
-app.use('/api', formRoutes);
+app.use("/api", formRoutes);
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-	const path = require('path');
-	app.use(express.static(path.join(__dirname, '../frontend')));
-
-	app.get('*', (req, res) => {
-		res.sendFile(
-			path.join(__dirname, '../frontend', 'index.html')
-		);
-	});
-}
-
-// Error handling middleware
+/* ======================
+   Error Handler
+====================== */
 app.use((err, req, res, next) => {
-	console.error('Server error:', err.message);
-	res.status(err.status || 500).json({
-		error: err.message || 'Internal server error',
-		details:
-			process.env.NODE_ENV === 'development'
-				? err.stack
-				: undefined
-	});
+  console.error("Server error:", err.message);
+  res.status(err.status || 500).json({
+    error: err.message || "Internal server error",
+  });
 });
 
-// Initialize database and start server
+/* ======================
+   Start Server
+====================== */
 initializeDatabase()
-	.then(() => {
-		app.listen(PORT, '0.0.0.0', () => {
-			console.log(
-				`✅ Server running on http://localhost:${PORT}`
-			);
-			console.log(
-				`🌐 Frontend should be accessible from:`
-			);
-			console.log(`   - http://localhost:5633`);
-			console.log(`   - http://127.0.0.1:5633`);
-			console.log(
-				`📡 Health check: http://localhost:${PORT}/api/health`
-			);
-		});
-	})
-	.catch((err) => {
-		console.error('❌ Failed to initialize database:', err);
-		process.exit(1);
-	});
+  .then(() => {
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`✅ Server running on http://localhost:${PORT}`);
+      console.log(`🌐 Early access page: http://localhost:${PORT}`);
+      console.log(`📡 Health check: http://localhost:${PORT}/api/health`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ Failed to initialize database:", err);
+    process.exit(1);
+  });

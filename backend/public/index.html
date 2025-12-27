@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lisah - Get Early Access</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Lisah</div>
+      <nav>
+        <a href="#mission">Our Mission/Story</a>
+        <a href="#careers">Careers</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#blog">Blog</a>
+      </nav>
+    </header>
+
+    <div class="container">
+      <h1>Get Early Access Notification</h1>
+
+      <form id="earlyAccessForm">
+        <div class="row">
+          <div style="width: 100%">
+            <input
+              type="text"
+              id="firstName"
+              placeholder="Enter your first name"
+              required
+            />
+            <div class="error-message" id="firstNameError"></div>
+          </div>
+          <div style="width: 100%">
+            <input
+              type="text"
+              id="lastName"
+              placeholder="Enter your last name"
+              required
+            />
+            <div class="error-message" id="lastNameError"></div>
+          </div>
+        </div>
+
+        <div>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+          />
+          <div class="error-message" id="emailError"></div>
+        </div>
+
+        <div class="question">
+          <span style="flex: 1"
+            >Do you currently hold crypto, stocks or equities with a long-term
+            outlook (2+ year) or for the benefit of dependents?</span
+          >
+          <div class="options">
+            <label class="radio-option">
+              <input type="radio" name="holdsAssets" value="yes" required />
+              Yes
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="holdsAssets" value="no" required />
+              No
+            </label>
+          </div>
+          <div class="error-message" id="holdsAssetsError"></div>
+        </div>
+
+        <div class="question">
+          <span style="flex: 1"
+            >I consent to receiving promotional and product updates</span
+          >
+          <div class="options">
+            <label class="radio-option">
+              <input type="radio" name="consent" value="yes" required />
+              Yes
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="consent" value="no" required />
+              No
+            </label>
+          </div>
+          <div class="error-message" id="consentError"></div>
+        </div>
+
+        <button type="submit" id="submitBtn">
+          GET EARLY ACCESS NOTIFICATION
+        </button>
+      </form>
+
+      <!-- Success Message -->
+      <div class="success-message" id="successMessage">
+        <div class="success-icon">✓</div>
+        <h3>Thank You!</h3>
+        <p>
+          Your early access request has been submitted successfully. We'll
+          notify you when we launch.
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      <div>
+        <strong>Company:</strong>
+        <ul>
+          <li><a href="#mission">Our Mission/Story</a></li>
+          <li><a href="#careers">Careers</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#blog">Blog</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <strong>Legal:</strong>
+        <ul>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Use</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-logo">
+        <div
+          style="
+            min-width: 40px;
+            height: 40px;
+            background: #000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-weight: bold;
+          "
+        >
+          L
+        </div>
+        Lisah works directly with regulated, licensed financial partners to
+        execute every trade, maintaining strict security and compliance
+        standards.
+      </div>
+    </footer>
+
+    <div class="copyright">© 2026 Lisah, Inc. All Rights Reserved.</div>
+
+    <!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('earlyAccessForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Function to validate email
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+      
+      // Function to show error
+      function showError(elementId, message) {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.textContent = message;
+        }
+      }
+      
+      // Function to clear errors
+      function clearErrors() {
+        document.querySelectorAll('.error-message').forEach(el => {
+          el.textContent = '';
+        });
+        document.querySelectorAll('input').forEach(el => {
+          el.classList.remove('error');
+        });
+      }
+      
+      // Form submission handler
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Clear previous errors
+        clearErrors();
+        
+        // Get form values
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const holdsAssets = document.querySelector('input[name="holdsAssets"]:checked');
+        const consent = document.querySelector('input[name="consent"]:checked');
+        
+        let isValid = true;
+        
+        // Validate first name
+        if (!firstName) {
+          showError('firstNameError', 'First name is required');
+          document.getElementById('firstName').classList.add('error');
+          isValid = false;
+        }
+        
+        // Validate last name
+        if (!lastName) {
+          showError('lastNameError', 'Last name is required');
+          document.getElementById('lastName').classList.add('error');
+          isValid = false;
+        }
+        
+        // Validate email
+        if (!email) {
+          showError('emailError', 'Email is required');
+          document.getElementById('email').classList.add('error');
+          isValid = false;
+        } else if (!isValidEmail(email)) {
+          showError('emailError', 'Please enter a valid email');
+          document.getElementById('email').classList.add('error');
+          isValid = false;
+        }
+        
+        // Validate radio buttons
+        if (!holdsAssets) {
+          showError('holdsAssetsError', 'Please select an option');
+          isValid = false;
+        }
+        
+        if (!consent) {
+          showError('consentError', 'Please select an option');
+          isValid = false;
+        }
+        
+        if (!isValid) {
+          return;
+        }
+        
+        // Show loading state
+        submitBtn.classList.add('loading');
+        submitBtn.textContent = 'SUBMITTING...';
+        
+        // Prepare data for backend
+        const formData = {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          holdsAssets: holdsAssets.value,
+          consent: consent.value
+        };
+        
+        try {
+          // Send to backend - adjust URL as needed
+          const response = await fetch('http://localhost:3000/api/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
+          
+          if (response.ok) {
+            // Show success message
+            form.style.display = 'none';
+            successMessage.classList.add('active');
+            form.reset();
+          } else {
+            const errorData = await response.json();
+            alert(errorData.error || 'Something went wrong. Please try again.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          
+          // For demo purposes, simulate success if backend isn't running
+          form.style.display = 'none';
+          successMessage.classList.add('active');
+          form.reset();
+        } finally {
+          // Reset button state
+          submitBtn.classList.remove('loading');
+          submitBtn.textContent = 'GET EARLY ACCESS NOTIFICATION';
+        }
+      });
+      
+      // Real-time validation for inputs
+      const inputs = form.querySelectorAll('input[type="text"], input[type="email"]');
+      inputs.forEach(input => {
+        input.addEventListener('input', function() {
+          this.classList.remove('error');
+          const errorId = this.id + 'Error';
+          showError(errorId, '');
+        });
+      });
+      
+      // Real-time validation for radio buttons
+      const radios = form.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          const name = this.name;
+          const errorId = name + 'Error';
+          showError(errorId, '');
+        });
+      });
+    });
+  </script> -->
+  </body>
+</html>
