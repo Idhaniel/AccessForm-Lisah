@@ -1,0 +1,255 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f9f7;
+  color: #111;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+}
+
+nav a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: #111;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 700px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #c6e3cc;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: left;
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #c6e3cc;
+}
+
+.options {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.radio-option input[type="radio"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+button {
+  width: 260px;
+  margin: 0 auto;
+  padding: 15px;
+  background: #7fdf9c; /* Lighter green as requested */
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #6bcb8b;
+}
+
+button.loading {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+footer {
+  margin-top: 80px;
+  padding: 40px 60px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer a {
+  text-decoration: none;
+  color: #111;
+  display: block;
+  margin-bottom: 6px;
+}
+
+footer a:hover {
+  color: #4caf50;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  max-width: 500px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* Success Message */
+.success-message {
+  display: none;
+  background: white;
+  padding: 40px;
+  border-radius: 6px;
+  border: 1px solid #c6e3cc;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#successMessage.active {
+  display: block;
+}
+
+.success-icon {
+  font-size: 48px;
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+
+.success-message h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.success-message p {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Error Styling */
+.error {
+  border-color: #ff6b6b !important;
+}
+
+.error-message {
+  color: #ff6b6b;
+  font-size: 12px;
+  margin-top: 5px;
+  text-align: left;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header {
+    padding: 20px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  nav {
+    display: flex;
+    gap: 15px;
+    margin-left: 0;
+  }
+
+  nav a {
+    margin-left: 0;
+  }
+
+  .container {
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .question {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  footer {
+    padding: 30px 20px;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  button {
+    width: 100%;
+    max-width: 260px;
+  }
+}
